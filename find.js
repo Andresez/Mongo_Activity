@@ -31,7 +31,7 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
 // encontrarVenta();
 
 
-//Encontrar un registro de venta
+// //Encontrar un registro de venta
 
 
 // async function encontrarVenta(nombreVenta){
@@ -39,7 +39,7 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
     
 //         try {
 //             await client.connect();
-//             const result = await client.db('sample_sales').collection('listingSales').
+//             const result = await client.db('sample_sales').collection('collection3').
 //             findOne({DNI_cliente: nombreVenta})
 //             if(result){
 //                 console.log(`Se encontró una venta de nombre ${nombreVenta}`);
@@ -56,11 +56,11 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
 //         }
 //     }
     
-//     encontrarVenta(7);
+//     encontrarVenta(6);
 
 
 
-//Encontrar por un límite definido
+// //Encontrar por un límite definido
 
 // async function encontrarVenta(nombreVenta){
 //     const client = new MongoClient(uri);
@@ -84,7 +84,7 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
 // encontrarVenta();
 
 
-//Categorizar por atributo, en este caso "DNI_cliente" de forma descendente (1)
+// //Categorizar por atributo, en este caso "DNI_cliente" de forma descendente (1)
 
 // async function encontrarVenta(nombreVenta){
 //     const client = new MongoClient(uri);
@@ -106,8 +106,3 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
 // }
 
 // encontrarVenta();
-
-
-
-
-    
