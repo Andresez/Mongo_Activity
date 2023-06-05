@@ -4,6 +4,33 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
 
 //Operaciones CRUD
 
+//Insertar una venta
+
+async function crearVenta(nuevaVenta){
+    const client = new MongoClient(uri); //Instanciamos como objeto, en este caso cliente
+
+    try {
+        await client.connect();
+    const result = await client.db('sample_sales').collection('collection3').insertOne(nuevaVenta);
+
+    console.log(`Se creo una nueva venta con el siguiente id: ${result.insertId}`);
+    } catch (e) {
+        console.error(e);
+    }finally{
+
+    await client.close();
+    } 
+}
+
+crearVenta({
+    "dni_cliente": faker.number.int({min: 0, max: 10}),
+    "nombre": faker.person.firstName(),
+    "apellido": faker.person.lastName(),
+    "producto": faker.commerce.product(),
+    "fecha": faker.date.recent(),
+    "total": faker.number.int({min: 0, max: 10})
+});
+
 //CREAT insertMany()
 
 async function crearVenta(nuevaVenta){

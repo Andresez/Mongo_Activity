@@ -78,41 +78,41 @@ use ('sample_sales')
 // }
 // })
 
-db.createCollection("collection3", {
-    validator: {
-       $jsonSchema: {
-          bsonType: "object",
-          title: "Sales Object Validation",
-          required: [ "cantidad",  "metodo compra", "opiniones", "estado" ],
-          properties: {
-            cantidad: {
-                bsonType: "int",
-                description: "'cantidad' must be a interger and is required"
+// db.createCollection("collection3", {
+//     validator: {
+//        $jsonSchema: {
+//           bsonType: "object",
+//           title: "Sales Object Validation",
+//           required: [ "cantidad",  "metodo compra", "opiniones", "estado" ],
+//           properties: {
+//             cantidad: {
+//                 bsonType: "int",
+//                 description: "'cantidad' must be a interger and is required"
 
-            },
+//             },
 
-            metodo_compra: {
-                bsonType: "string",
-                description: "'metodo compra' must be a string and is required"
-            },
+//             metodo_compra: {
+//                 bsonType: "string",
+//                 description: "'metodo compra' must be a string and is required"
+//             },
 
-            opiniones: {
-                bsonType: "string",
-                description: "'opiniones' must be a date and is required"
+//             opiniones: {
+//                 bsonType: "string",
+//                 description: "'opiniones' must be a date and is required"
 
-            },
+//             },
 
-            estado: {
-                bsonType: "string",
-                description: "'estado' must be a interger and is required"
-            }
-        }
-    }
-}
-})
+//             estado: {
+//                 bsonType: "string",
+//                 description: "'estado' must be a interger and is required"
+//             }
+//         }
+//     }
+// }
+// })
 
 
-// // Uso del Unwind Para Recorrer El Array
+// Uso del Unwind Para Recorrer El Array
 
 // use ('sample_sales')
 
@@ -154,3 +154,25 @@ db.createCollection("collection3", {
 //         $count: "contador"
 //     }
 // ])
+
+
+db.listingSales.aggregate([
+    {
+    $lookup: {
+        from: "collection3",
+        localField: "'_id'",
+        foreignField: "'_id'",
+        as: "subtotal"
+    }
+
+    },{
+    $project: {
+        "dni_cliente": true,
+        "nombre": true,
+        "apellido": true,
+        "producto": true,
+        "fecha": true,
+        subtotal: true
+    }
+}    
+])
