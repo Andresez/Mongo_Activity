@@ -58,9 +58,9 @@ router.get('/:id', async (req, res) => {
 }
 )
 
-CREATE
+// CREATE
 
-insertOne()
+//insertOne()
 router.post('/:id', async (req, res) => { 
     const body = req.body;
     const client = new MongoClient(uri);

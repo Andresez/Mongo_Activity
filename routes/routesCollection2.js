@@ -1,7 +1,6 @@
 const express = require('express');
 const {MongoClient, ObjectId} = require('mongodb'); //Para poder trabajar con Id
-
-const uri = 'mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWrites=true&w=majority';
+const uri = process.env.URI;
 
 const router = express.Router();
 
@@ -58,9 +57,9 @@ router.get('/:id', async (req, res) => {
 }
 )
 
-CREATE
+//CREATE
 
-insertOne()
+//insertOne()
 router.post('/:id', async (req, res) => { 
     const body = req.body;
     const client = new MongoClient(uri);

@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const routerApi = require('./routes');
-const bodyparser = require('body-parser');
 require('dotenv').config();
 // const {MongoClient, ObjectId} = require('mongodb'); //Para poder trabajar con Id
 // const uri = 'mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWrites=true&w=majority';
 // const hostname = 'localhost';
+const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 // const port = 3000;
 // const router = express.Router();
