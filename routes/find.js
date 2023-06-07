@@ -39,13 +39,13 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
     
 //         try {
 //             await client.connect();
-//             const result = await client.db('sample_sales').collection('collection3').
-//             findOne({DNI_cliente: nombreVenta})
+//             const result = await client.db('sample_sales').collection('listingSales').
+//             findOne({dni_cliente: nombreVenta})
 //             if(result){
 //                 console.log(`Se encontró una venta de nombre ${nombreVenta}`);
 //                 console.log(result);
 //             }else{
-//                 console.log(`No se encontró venta propiedad de nombre ${nombreVenta}`);
+//                 console.log(`No se encontró venta de nombre ${nombreVenta}`);
 //             }
       
 //         } catch (e) {
@@ -56,7 +56,7 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
 //         }
 //     }
     
-//     encontrarVenta(6);
+//     encontrarVenta(9);
 
 
 
@@ -92,7 +92,7 @@ const uri = "mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWr
 //     try {
 //         await client.connect();
 //         const result = await client.db('sample_sales').collection('listingSales').
-//         find({}).sort({DNI_cliente: 1});
+//         find({}).sort({dni_cliente: 1});
 
 //         const result2= await result.toArray();
 //         console.log(result2);

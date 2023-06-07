@@ -133,15 +133,15 @@ use ('sample_sales')
 //     }
 // ])
 
-// db.listingSales.aggregate([
-//     {
-//         $match: {fecha: "2023-05-17"}
-//     },{
-//         $project: {"DNI_cliente": false}
-//     },{
-//         $sort: {"total":1}
-//     }
-// ])
+db.listingSales.aggregate([
+    {
+        $match: {producto: "Bacon"}
+    },{
+        $project: {"dni_cliente": true}
+    },{
+        $sort: {"total":1}
+    }
+])
 
 // db.listingSales.aggregate([
 //     {
@@ -156,23 +156,23 @@ use ('sample_sales')
 // ])
 
 
-db.listingSales.aggregate([
-    {
-    $lookup: {
-        from: "collection3",
-        localField: "'_id'",
-        foreignField: "'_id'",
-        as: "subtotal"
-    }
+// db.listingSales.aggregate([
+//     {
+//     $lookup: {
+//         from: "collection3",
+//         localField: "'_id'",
+//         foreignField: "'_id'",
+//         as: "subtotal"
+//     }
 
-    },{
-    $project: {
-        "dni_cliente": true,
-        "nombre": true,
-        "apellido": true,
-        "producto": true,
-        "fecha": true,
-        subtotal: true
-    }
-}    
-])
+//     },{
+//     $project: {
+//         "dni_cliente": true,
+//         "nombre": true,
+//         "apellido": true,
+//         "producto": true,
+//         "fecha": true,
+//         subtotal: true
+//     }
+// }    
+// ])

@@ -9,8 +9,8 @@ async function actualizarVenta(tipoVenta, campoActualizar){
     
     try {
         await client.connect();
-        const result = await client.db('sample_sales').collection('collection3').
-        updateOne({dni_cliente: tipoVenta}, {$set: {fecha: campoActualizar}})
+        const result = await client.db('sample_sales').collection('listingSales').
+        updateOne({dni_cliente: tipoVenta}, {$set: {producto: campoActualizar}})
         console.log(`${result.matchedCount} venta(s) cumple con el citerio de búsqueda`);
         console.log(`${result.modifiedCount} venta(s) fue(ron) actualizada(s)`);
       
@@ -22,7 +22,7 @@ async function actualizarVenta(tipoVenta, campoActualizar){
     }
 }
 
-actualizarVenta(6, "2023-08-20");
+actualizarVenta(9, "Mercedes Benz");
 
 // Actualizar muchos elementos
     
@@ -41,8 +41,9 @@ async function actualizarVenta(campoActualizar){
     }finally{
     
         await client.close();
-    }
+    }   
 }
     
 actualizarVenta(faker.number.int({min: 1, max: 100}));
+
 
