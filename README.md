@@ -122,11 +122,11 @@ use ('sample_sales')
 
  <!-- USO DE UNWIND PARA RECORRER EL ARRAY -->
 
-use ('sample_sales')
-
-db.listingSales.aggregate([{
-    $unwind: "$detalle"
-}])
+// use ('sample_sales')
+//
+// db.listingSales.aggregate([{
+//    $unwind: "$detalle"
+// }])
 
 
 <!-- PIPELINE LO UTILIZAMOS PARA ORDENAR ELEMENTOS SEPARADOS O ARREGLOS -->
@@ -142,13 +142,13 @@ db.listingSales.aggregate([{
 // ])
 
 // db.listingSales.aggregate([
-//     {
-//         $match: {fecha: "2023-05-17"}
-//     },{
-//         $project: {"DNI_cliente": false}
-//     },{
-//         $sort: {"total":1}
-//     }
+//    {
+//        $match: {producto: "Bacon"}
+//   },{
+//      $project: {"dni_cliente": true}
+//    },{
+//      $sort: {"total":1}
+//    }
 // ])
 
 // db.listingSales.aggregate([

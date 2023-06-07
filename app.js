@@ -4,9 +4,9 @@ const routerApi = require('./routes');
 require('dotenv').config();
 // const {MongoClient, ObjectId} = require('mongodb'); //Para poder trabajar con Id
 // const uri = 'mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWrites=true&w=majority';
-// const hostname = 'localhost';
-const uri = process.env.URI;
+
 const port = process.env.PORT || 4000;
+// const hostname = 'localhost';
 // const port = 3000;
 // const router = express.Router();
 const app = express();
@@ -17,10 +17,16 @@ app.use(bodyparser.urlencoded({extended: true})); //Para poder trabajar con form
 app.use(express.json()); //Para poder trabajar con JSON
 routerApi(app);
 
-// const port = 3000;
+// app.get('/', (req, res) => {
+//     res.send("Servidor de Ventas");
+// })
 
-app.get('/', (req, res) => {
-    res.send("Servidor de Ventas");
+app.get('/api/v1', (req, res) => {
+    res.send("API de Ventas");
+})
+
+app.use('/*', (req, res) => {
+    res.status(404).send("Oops! The page you requested was not found!");
 })
 
 app.listen(3000, () => {

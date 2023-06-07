@@ -133,15 +133,15 @@ use ('sample_sales')
 //     }
 // ])
 
-db.listingSales.aggregate([
-    {
-        $match: {producto: "Bacon"}
-    },{
-        $project: {"dni_cliente": true}
-    },{
-        $sort: {"total":1}
-    }
-])
+// db.listingSales.aggregate([
+//     {
+//         $match: {producto: "Bacon"}
+//     },{
+//         $project: {"dni_cliente": true}
+//     },{
+//         $sort: {"total":1}
+//     }
+// ])
 
 // db.listingSales.aggregate([
 //     {

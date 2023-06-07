@@ -1,9 +1,14 @@
 const express = require('express');
 const {MongoClient, ObjectId} = require('mongodb'); //Para poder trabajar con Id
+const bodyparser = require ('body-parser');
+require ('dotenv').config();
+// const uri = process.env.URI;
+const listingService = require('../services/listingService');
 
 const uri = 'mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWrites=true&w=majority';
-
 const router = express.Router();
+
+const service = new listingService();
 
 /**
  * CRUD , CREATE , READ , UPDTAE , DELETE
@@ -13,26 +18,14 @@ const router = express.Router();
 
 // find()
 router.get('/', async (req, res) => { 
-    const body = req.body;
-    const client = new MongoClient(uri);
 
-  try {
-      await client.connect();
-      const collection2 = await client.db('sample_sales').collection('collection2').find({}).toArray();  
-      
-      if(collection2){
-      res.status(200).send(collection2);
-      }else{
-      res.status(404).send("No se encontró información");
-      }
-  } catch (e) {
-      console.error(e);
-  }finally{
-
-  await client.close();
+    const collection2 = await service.find();
+    if(collection2.length>0){
+        res.status(200).send(collection2);
+    }else{
+        res.status(404).send("Not found");
     }
-}
-)
+})
 
 // findOne()
 router.get('/:id', async (req, res) => { 
@@ -120,36 +113,18 @@ router.post('/', async (req, res) => {
 // updateOne()
 router.patch('/:id', async (req, res) => { 
     const id = req.params.id;
-    const body = req.body;
-    const client = new MongoClient(uri);
-
-    try {
-        await client.connect();
-        const collection2 = await client.db('sample_sales').collection('collection2').updateOne({_id: new ObjectId(id)},
-        {$set:{
-            title: body, 
-            year: body.year
-        }
-    });  
+    const cole2_detalle = req.body.detalle;
+    const cole2_iva = req.body.iva;
+    const collection2 = await service.updateOne(id, cole2_detalle, cole2_iva);
     if (collection2){
-    res.status(200).json({
-        message : 'Se actualizó la venta',
-        collection2,
-        // data: body
+        res.status(200).json({
+        "message" : 'Se actualizó la venta',
     });
 
    }else{
-    res.status(404).send("No se actualizó la venta");
+        res.status(404).send("No se actualizó la venta");
    }
-    } catch (e) {
-        console.error(e);
-    }finally{
-
-    await client.close();
-    }
-
-}
-)
+})
 
 // updateMany()
 router.patch('/', async (req, res) => { 
