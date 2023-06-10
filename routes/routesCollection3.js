@@ -1,242 +1,139 @@
 const express = require('express');
-const {MongoClient, ObjectId} = require('mongodb'); //Para poder trabajar con Id
-
-const uri = 'mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWrites=true&w=majority';
+const bodyparser = require ('body-parser');
+const listingSearch3 = require('../services/collection3/collection3Find');
+const listingRegister3 = require('../services/collection3/collection3Insert');
+const listingUpda3 = require('../services//collection3/collection3Update');
+const listingErase3 = require('../services/collection3/collection3Delete');
 
 const router = express.Router();
+
+const search = new listingSearch3();
+const register = new listingRegister3();
+const upda = new listingUpda3();
+const erase = new listingErase3();
 
 /**
  * CRUD , CREATE , READ , UPDTAE , DELETE
  */
 
-// READ
-
-// find()
-router.get('/', async (req, res) => { 
-    const body = req.body;
-    const client = new MongoClient(uri);
-
-  try {
-      await client.connect();
-      const collection3 = await client.db('sample_sales').collection('collection3').find({}).toArray();  
-      
-      if(collection3){
-      res.status(200).send(collection3);
-      }else{
-      res.status(404).send("No se encontró información");
-      }
-  } catch (e) {
-      console.error(e);
-  }finally{
-
-  await client.close();
-    }
-}
-)
-
-// findOne()
-router.get('/:id', async (req, res) => { 
-    const id = req.params.id;
-    const client = new MongoClient(uri);
-
-    try {
-      await client.connect();
-      const collection3 = await client.db('sample_sales').collection('collection3').findOne({_id: new ObjectId(id)});  
-    if (collection3){
-    res.status(200).send(collection3);
-
-   }else{
-    res.status(404).send("No se encontró información");
-   }
-    } catch (e) {
-      console.error(e);
-    }finally{
-
-    await client.close();
-    }
-
-}
-)
-
 // CREATE
-
-// insertOne()
-// router.post('/:id', async (req, res) => { 
-//     const body = req.body;
-//     const client = new MongoClient(uri);
-
-//     try {
-//         await client.connect();
-//         const collection3 = await client.db('sample_sales').collection('collection3').insertOne({body});  
-//     if (collection3){
-//     res.status(200).json({
-//         message : 'Se crearon las ventas en la base de datos',
-//         collection3,
-//         //data: body
-//     });
-//    }else{
-//     res.status(404).send("No se crearon las ventas");
-//    }
-//     } catch (e) {
-//         console.error(e);
-//     }finally{
-
-//     await client.close();
-//     }
-
-// }
-// )
 
 // insertMany()
 router.post('/', async (req, res) => { 
     const body = req.body;
-    const client = new MongoClient(uri);
-
-    try {
-        await client.connect();
-        const collection3 = await client.db('sample_sales').collection('collection3').insertMany([body]);  
+    const collection3 = await register.insertMany(body);
+ 
     if (collection3){
     res.status(200).json({
-        message : 'Se crearon las ventas en la base de datos',
-        collection3,
-        //data: body
+        "message" : 'Created sales',
+        collection3
     });
-
-   }else{
-    res.status(404).send("No se crearon la ventas");
-   }
-    } catch (e) {
-        console.error(e);
-    }finally{
-
-    await client.close();
+    }else{
+        res.status(404).send("Sales not created");
     }
+})
 
-}
-)
+// READ
+
+// find()
+router.get('/', async (req, res) => { 
+    const collection3 = await search.find();
+    
+    if(collection3){
+    res.status(200).send({
+        "message": 'Found collection',
+        collection3
+    });
+    }else{
+        res.status(404).send("Collection not found");
+    }
+})
+
+// findOne()
+router.get('/:id', async (req, res) => { 
+    const id = req.params.id;
+    const collection3 = await search.findOne({id});
+    
+    if (collection3){
+    res.status(200).send({
+        "message": 'Found collection',
+        collection3
+    });
+    }else{
+        res.status(404).send("Collection not found");
+   }
+})
 
 // UPDATE
 
 // updateOne()
 router.patch('/:id', async (req, res) => { 
     const id = req.params.id;
-    const body = req.body;
-    const client = new MongoClient(uri);
-
-    try {
-        await client.connect();
-        const collection3 = await client.db('sample_sales').collection('collection3').updateOne({_id: new ObjectId(id)},
-        {$set:{
-            title: body, 
-            year: body.year
-        }
-    });  
+    const cole3_cantidad = req.body.cantidad;
+    const cole3_estado = req.body.estado;
+    const collection3 = await upda.updateOne(id, cole3_cantidad, cole3_estado);
+    
     if (collection3){
-    res.status(200).json({
-        message : 'Se actualizó la venta',
-        collection3,
-        // data: body
+        res.status(200).json({
+        "message" : 'Sale update',
+        collection3
     });
 
    }else{
-    res.status(404).send("No se actualizó la venta");
+        res.status(404).send("Sale not update");
    }
-    } catch (e) {
-        console.error(e);
-    }finally{
-
-    await client.close();
-    }
-
-}
-)
+})
 
 // updateMany()
 router.patch('/', async (req, res) => { 
-    const id = req.params.id;
-    const body = req.body;
-    const client = new MongoClient(uri);
+    const cole3_estado = req.body.estado;
+    const collection3 = await upda.updateMany(cole3_estado);
 
-    try {
-        await client.connect();
-        const collection3 = await client.db('sample_sales').collection('collection3').updateMany({},
-        {$set:{body}});  
-        if (collection3){
-        res.status(200).send(`Se actualizó la colección ${collection3}`);
-    
-
-   }else{
-    res.status(404).send("No se actualizó la venta");
-   }
-    } catch (e) {
-        console.error(e);
-    }finally{
-
-    await client.close();
-    }
-
-}
-)
-
-// DELETE
-
-// Eliminar un solo campo
-router.delete('/:id', async (req, res) => { 
-    const id = req.params.id;
-    const body = req.body;
-    const client = new MongoClient(uri);
-
-    try {
-        await client.connect();
-        const collection3 = await client.db('sample_sales').collection('collection3').deleteOne({_id: new ObjectId(id)},
-        {$set:{
-            title:body, 
-            year: body.year
-        }
-    });  
     if (collection3){
-    res.status(200).json({
-        message : 'Se eliminó la venta',
-        collection3,
-        data: body
+        res.status(200).json({
+        "message": 'Update sale',
+        collection3
     });
 
    }else{
-    res.status(404).send("No se eliminó la venta");
+        res.status(404).send("Sale not update");
    }
-    } catch (e) {
-        console.error(e);
-    }finally{
+})
 
-    await client.close();
-    }
+// DELETE
 
-}
-)
-
-// DELETE Many
-router.delete('/', async (req, res) => { 
+// deleteOne()
+router.delete('/:id', async (req, res) => { 
     const id = req.params.id;
+    const collection3 = erase.deleteOne({id});
+   
+    if (collection3){
+    res.status(200).json({
+        "message" : 'Deleted sale',
+        collection3
+    });
+
+   }else{
+    res.status(404).send("Sale not deleted");
+
+   }
+})
+
+// deleteMany()
+router.delete('/', async (req, res) => { 
     const body = req.body;
-    const client = new MongoClient(uri);
+    const collection3 = erase.deleteMany(body);
 
-    try {
-        await client.connect();
-        const collection3 = await client.db('sample_sales').collection('collection3').deleteMany(body);
-        if(collection3){
-            res.status(200).send(`Se borró la siguiente colección ${collection3}`);
+    if(collection3){
+    res.status(200).json({
+        "message": 'Deleted sales',
+        collection3
+    });
 
-        }else{
-        res.status(404).send("No se encontró información");
-        }
-        } catch (e) {
-        console.error(e);
-        }finally{
+   }else{
+        res.status(404).send("Sales not deleted");
+    }
+})
 
-        await client.close();
-        }
-
-}
-)
 
 module.exports = router;
