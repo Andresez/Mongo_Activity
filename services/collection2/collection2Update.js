@@ -8,7 +8,7 @@ class listingUpdate2{
   
     // UPDATE
     
-async updateOne(id, cole2_detalle, cole2_iva){
+async updateOne(id, pago, detalle, subtotal, iva){
     const client = new MongoClient(uri);
 
     try {
@@ -17,8 +17,10 @@ async updateOne(id, cole2_detalle, cole2_iva){
             "_id": new ObjectId(id)
         },{
             $set:{
-                detalle: cole2_detalle, 
-                iva: cole2_iva
+                metodopago: pago,
+                detalle: detalle, 
+                subtotal: subtotal,
+                iva: iva
             }
         });  
     return collection2;

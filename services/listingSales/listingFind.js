@@ -43,6 +43,23 @@ async findOne(id){
 
     }
 
+async findSkiLi(){
+    const client = new MongoClient(uri);   
+            
+    try {
+        await client.connect();
+        const listingSales = await client.db('sample_sales').collection('listingSales').find({}).skip(2).limit(8).toArray();  
+        return listingSales;
+           
+        } catch (e) {
+            console.error(e);
+        }finally{
+        
+        await client.close();
+        }
+        
+    }  
+
 }
 
 module.exports = listingFind;

@@ -1,0 +1,54 @@
+{{>head title='Ventas'}}
+{{>nav}}
+<br>
+<br>
+
+<div class="container-fluid" style="width: 65%; margin-left: 14%">
+    <form class="d-flex" action="/ventas/searching/{{title.id}}" method="POST">
+        <input class="form-control me-2" name="id" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary">Search</button>
+        <a href="/ventas/insert"><button type="button" style="margin-left: 100%;" class="btn btn-primary">Register</button></a>
+    </form>
+</div>
+<br>
+
+<div style="width: 70%; height:600px; margin-left:15%; overflow-y:scroll; overflow-x:hidden;">
+    <table class="table table-striped">
+    
+    <tr>
+        <th scope="col">Id</th>
+        <th>DNI Cliente</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Producto</th>
+        <th>Total</th>
+        <th>Acción</th>
+        <th></th>
+    </tr>
+<tbody>
+                
+{{#each title}}
+                
+    <tr>
+        <td scope="row">{{_id}}</td>
+        <td>{{dni_cliente}}</td>
+        <td>{{nombre}}</td>
+        <td>{{apellido}}</td>
+        <td>{{producto}}</td>
+        <td>{{total}}</td>
+        <td>
+            <a href="/ventas/update/{{_id}}"><button type="button" class="btn btn-primary">Update</button></a>
+        </td>
+        
+        <td>
+            <a href="/ventas/eliminar/{{_id}}"><button type="button" class="btn btn-danger">Delete</button></a>
+        </td>
+    </tr>
+                     
+{{/each}}
+                    
+</tbody>
+</table>
+</div>
+
+{{>footer}}

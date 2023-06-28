@@ -1,12 +1,11 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const routerApi = require('./routes');
+const hbs=require('hbs');
+const path=require('path');
+
 require('dotenv').config();
-// const {MongoClient, ObjectId} = require('mongodb'); //Para poder trabajar con Id
-// const uri = 'mongodb+srv://andres:admin353@cluster0.etevk7a.mongodb.net/?retryWrites=true&w=majority';
-// const hostname = 'localhost';
-// const port = 3000;
-// const router = express.Router();
+
 const uri = process.env.URI;
 const app = express();
 
@@ -14,23 +13,33 @@ const app = express();
 app.use(bodyparser.json()); //Para poder trabajar con JSON
 app.use(bodyparser.urlencoded({extended: true})); //Para poder trabajar con formularios codificados en url
 app.use(express.json()); //Para poder trabajar con JSON
+app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+hbs.registerPartials(__dirname + '/View', function (err) {});
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/View');
+
 routerApi(app);
 
-// app.get('/', (req, res) => {
-//     res.send("Servidor de Ventas");
-// })
-
-app.get('/api/v1', (req, res) => {
-    res.send("API de Ventas");
+app.get('/', (req, res) => {
+    res.send("API Sales");
+    // res.render('../View/home');
 })
 
 app.use('/*', (req, res) => {
     res.status(404).send("Oops! The page you requested was not found!");
 })
 
-app.listen(3000, () => {
-    console.log(`El servidor está escuchando`);
-})
+app.listen(3000, ()=>{
+    console.log('Server in line')
+});
+
+
+
+// app.get('/', (req, res) => {
+//     res.send("Servidor de Ventas");
+// })
 
 // app.listen(port, hostname, () => {
 //     console.log(`El servidor está escuchando http://${hostname}:${port}`);

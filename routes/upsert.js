@@ -9,8 +9,8 @@ async function actualizarVenta(campoActualizar){
     
     try {
         await client.connect();
-        const result = await client.db('sample_sales').collection('collection3').
-        updateMany({}, {$set: {_id_colection: campoActualizar}}, {upsert:true} )
+        const result = await client.db('sample_sales').collection('collection2').
+        updateMany({}, {$set: {tiendas:campoActualizar}}, {upsert:true} )
         console.log(`${result.matchedCount} venta(s) cumple con el citerio de búsqueda`);
         console.log(`${result.modifiedCount} venta(s) fue(ron) actualizada(s)`);
       
@@ -22,4 +22,4 @@ async function actualizarVenta(campoActualizar){
     }
 }
     
-actualizarVenta(faker.number.int({min: 1, max: 100}));
+actualizarVenta(["Litograf", "Grafix", "Sidergrafic", "Shofigrap"]);

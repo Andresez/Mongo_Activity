@@ -2,59 +2,16 @@ use ('sample_sales')
 
 //Creamos las validaciones
 
-// db.createCollection("listingSales", {
-//     validator: {
-//        $jsonSchema: {
-//           bsonType: "object",
-//           title: "Sales Object Validation",
-//           required: [ "dni_cliente", "nombre", "apellido",  "producto", "fecha", "total" ],
-//           properties: {
-//             dni_cliente: {
-//                 bsonType: "int",
-//                 description: "'dni_Cliente' must be a interger and is required"
-//              },
-
-//             nombre: {
-//                 bsonType: "string",
-//                 description: "'nombre' must be a interger and is required"
-//             },
-
-//             apellido: {
-//                 bsonType: "string",
-//                 description: "'apellido' must be a interger and is required"
-
-//             },
-
-//             producto: {
-//                 bsonType: "string",
-//                 description: "'producto' must be a string and is required"
-//             },
-
-//             fecha: {
-//                 bsonType: "date",
-//                 description: "'fecha' must be a date and is required"
-
-//             },
-
-//             total: {
-//                 bsonType: "int",
-//                 description: "'total' must be a interger and is required"
-//             }
-//         }
-//     }
-// }
-// })
-
 // db.createCollection("collection2", {
 //     validator: {
 //        $jsonSchema: {
 //           bsonType: "object",
 //           title: "Sales Object Validation",
-//           required: [ "metodo pago",  "detalle", "subtotal", "iva" ],
+//           required: [ "metodopago",  "detalle", "subtotal", "iva" ],
 //           properties: {
-//             metodo_pago: {
+//             metodopago: {
 //                 bsonType: "string",
-//                 description: "'metodo pago' must be a interger and is required"
+//                 description: "'metodopago' must be a interger and is required"
 
 //             },
 
@@ -64,8 +21,8 @@ use ('sample_sales')
 //             },
 
 //             subtotal: {
-//                 bsonType: "int",
-//                 description: "'subtotal' must be a date and is required"
+//                 bsonType: "string",
+//                 description: "'subtotal' must be a string and is required"
 
 //             },
 
@@ -83,7 +40,7 @@ use ('sample_sales')
 //        $jsonSchema: {
 //           bsonType: "object",
 //           title: "Sales Object Validation",
-//           required: [ "cantidad",  "metodo compra", "opiniones", "estado" ],
+//           required: [ "cantidad",  "metodocompra", "opiniones", "estado" ],
 //           properties: {
 //             cantidad: {
 //                 bsonType: "int",
@@ -91,9 +48,9 @@ use ('sample_sales')
 
 //             },
 
-//             metodo_compra: {
+//             metodocompra: {
 //                 bsonType: "string",
-//                 description: "'metodo compra' must be a string and is required"
+//                 description: "'metodocompra' must be a string and is required"
 //             },
 
 //             opiniones: {
